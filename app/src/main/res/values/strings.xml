@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MicroAdventure</string>
+    <string name="settings">Settings</string>
+    <string name="history">History</string>
+    <string name="home">Home</string>
+    <string name="settings_string">Settings</string>
+    <string name="verlauf">Verlauf</string>
+    <string name="micro_adventure">Micro Adventure</string>
+</resources>

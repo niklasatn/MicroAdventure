@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         enableFullscreenMode();
+        handlePermissions();
         sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
 
         activityTextView = findViewById(R.id.TextView_activity);
@@ -96,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupBottomNavigation();
-        handlePermissions();
         loadSavedActivity();
         scheduleDailyActivityUpdate();
 
@@ -328,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
         }, 500);
     }
 
-    public void handlePermissions() {
+    private void handlePermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_CODE_POST_NOTIFICATION);

@@ -27,6 +27,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Calendar;
+import a.gautham.library.AppUpdater;
+import a.gautham.library.helper.Display;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
@@ -51,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         enableFullscreenMode();
+        handlePermissions();
         sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
 
         activityTextView = findViewById(R.id.TextView_activity);
@@ -96,9 +99,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         setupBottomNavigation();
-        handlePermissions();
         loadSavedActivity();
         scheduleDailyActivityUpdate();
+        checkForAppUpdates();
 
         buttonHelp.setOnClickListener(view -> {
             Intent intent2 = new Intent(getApplicationContext(), IntroActivity.class);
@@ -328,7 +331,14 @@ public class MainActivity extends AppCompatActivity {
         }, 500);
     }
 
-    public void handlePermissions() {
+    private void checkForAppUpdates(){
+        AppUpdater appUpdater = new AppUpdater(this);
+        appUpdater.setDisplay(Display.DIALOG);
+        appUpdater.setUpGithub("niklasatn", "MicroAdventure");
+        appUpdater.start();
+    }
+
+    private void handlePermissions() {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.POST_NOTIFICATIONS}, REQUEST_CODE_POST_NOTIFICATION);

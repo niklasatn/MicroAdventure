@@ -8,9 +8,11 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.github.appintro.AppIntro;
+import com.github.appintro.AppIntro2;
 import com.github.appintro.AppIntroFragment;
+import com.github.appintro.AppIntroPageTransformerType;
 
-public class IntroActivity extends AppIntro {
+public class IntroActivity extends AppIntro2 {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,11 +26,12 @@ public class IntroActivity extends AppIntro {
         addSlide(AppIntroFragment.newInstance("Einleitung abgeschlossen", "Drücke auf Fertig, um mit deinem ersten Abenteuer zu beginnen!", R.drawable.ending, getColor(R.color.light_blue), getColor(R.color.black), getColor(R.color.black)));
 
         setSkipButtonEnabled(false);
-        setIndicatorEnabled(true);
-        setSystemBackButtonLocked(false);
-        setNextArrowColor(getColor(R.color.black));
-        setColorDoneText(getColor(R.color.black));
-        setColorSkipButton(getColor(R.color.black));
+        setIndicatorEnabled(false);
+        setTransformer(AppIntroPageTransformerType.Depth.INSTANCE);
+        setColorTransitionsEnabled(true);
+        setSystemBackButtonLocked(true);
+        setWizardMode(true);
+        setImmersiveMode();
     }
 
     @Override

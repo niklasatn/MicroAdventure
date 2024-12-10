@@ -39,6 +39,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.konfetti)
     implementation(libs.appintro)
+    implementation(libs.appupdater)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

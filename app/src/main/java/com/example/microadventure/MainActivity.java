@@ -27,6 +27,8 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Calendar;
+import a.gautham.library.AppUpdater;
+import a.gautham.library.helper.Display;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
@@ -99,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         setupBottomNavigation();
         loadSavedActivity();
         scheduleDailyActivityUpdate();
+        checkForAppUpdates();
 
         buttonHelp.setOnClickListener(view -> {
             Intent intent2 = new Intent(getApplicationContext(), IntroActivity.class);
@@ -326,6 +329,13 @@ public class MainActivity extends AppCompatActivity {
             editor.putBoolean("activityCardView_invisible", false);
             editor.apply();
         }, 500);
+    }
+
+    private void checkForAppUpdates(){
+        AppUpdater appUpdater = new AppUpdater(this);
+        appUpdater.setDisplay(Display.DIALOG);
+        appUpdater.setUpGithub("niklasatn", "MicroAdventure");
+        appUpdater.start();
     }
 
     private void handlePermissions() {

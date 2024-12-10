@@ -9,10 +9,10 @@ activity = "1.9.3"
 constraintlayout = "2.2.0"
 konfetti = "1.2.5"
 appintro = "6.3.1"
-appupdater = "2.7"
+appupdater = "1.3"
 
 [libraries]
-appupdater = { group = "com.github.javiersantos", name = "AppUpdater", version.ref = "appupdater"}
+appupdater = { group = "com.github.GauthamAsir", name = "AppUpdater", version.ref = "appupdater"}
 appintro = { group = "com.github.AppIntro", name = "AppIntro", version.ref = "appintro" }
 konfetti = { group = "nl.dionsegijn", name = "konfetti", version.ref = "konfetti"}
 junit = { group = "junit", name = "junit", version.ref = "junit" }

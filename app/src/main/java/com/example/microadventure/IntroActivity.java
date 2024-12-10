@@ -8,7 +8,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.github.appintro.AppIntro;
+import com.github.appintro.AppIntro2;
 import com.github.appintro.AppIntroFragment;
+import com.github.appintro.AppIntroPageTransformerType;
 
 public class IntroActivity extends AppIntro {
     @Override
@@ -25,10 +27,9 @@ public class IntroActivity extends AppIntro {
 
         setSkipButtonEnabled(false);
         setIndicatorEnabled(true);
+        setTransformer(AppIntroPageTransformerType.Depth.INSTANCE);
+        setColorTransitionsEnabled(true);
         setSystemBackButtonLocked(false);
-        setNextArrowColor(getColor(R.color.black));
-        setColorDoneText(getColor(R.color.black));
-        setColorSkipButton(getColor(R.color.black));
     }
 
     @Override

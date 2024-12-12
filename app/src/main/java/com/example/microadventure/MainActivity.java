@@ -27,8 +27,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Calendar;
-import a.gautham.library.AppUpdater;
-import a.gautham.library.helper.Display;
 import nl.dionsegijn.konfetti.KonfettiView;
 import nl.dionsegijn.konfetti.models.Shape;
 import nl.dionsegijn.konfetti.models.Size;
@@ -101,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
         setupBottomNavigation();
         loadSavedActivity();
         scheduleDailyActivityUpdate();
-        checkForAppUpdates();
 
         buttonHelp.setOnClickListener(view -> {
             Intent intent2 = new Intent(getApplicationContext(), IntroActivity.class);
             startActivity(intent2);
+            checkForUpdate();
         });
 
         buttonAlternative.setOnClickListener(view -> {
@@ -331,11 +329,20 @@ public class MainActivity extends AppCompatActivity {
         }, 500);
     }
 
-    private void checkForAppUpdates(){
-        AppUpdater appUpdater = new AppUpdater(this);
-        appUpdater.setDisplay(Display.DIALOG);
-        appUpdater.setUpGithub("niklasatn", "MicroAdventure");
-        appUpdater.start();
+    private void checkForUpdate(){
+        String githubFileUrl = "https://github.com/niklasatn/MicroAdventure/raw/5e4891a3c1d257c09f4fd221e47a56156017898d/app_v2.apk";
+        int currentAppVersionCode = getApplicationInfo().compileSdkVersion;
+
+        AppUpdater checker = new AppUpdater(githubFileUrl, currentAppVersionCode);
+
+        if (checker.isNewVersionAvailable()) {
+            Toast.makeText(this, "App Update wird heruntergeladen...", Toast.LENGTH_SHORT).show();
+            if (checker.downloadFileToApksFolder(null)) {
+                Toast.makeText(this, "Update heruntergeladen!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "App ist Up-To-Date", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void handlePermissions() {

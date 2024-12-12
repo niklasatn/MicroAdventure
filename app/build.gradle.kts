@@ -39,7 +39,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.konfetti)
     implementation(libs.appintro)
-    implementation(libs.appupdater)
+    implementation(libs.okhttp)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)

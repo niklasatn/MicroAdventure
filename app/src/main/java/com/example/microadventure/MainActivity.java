@@ -26,6 +26,7 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
+import com.github.javiersantos.appupdater.enums.Display;
 import com.github.javiersantos.appupdater.enums.UpdateFrom;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.Calendar;
@@ -333,10 +334,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkForUpdate(){
-        new AppUpdater(this)
-                .setUpdateFrom(UpdateFrom.JSON)
-                .setUpdateJSON("https://raw.githubusercontent.com/niklasatn/MicroAdventure/master/releases.json")
-                .start();
+        AppUpdater appUpdater = new AppUpdater(this);
+        appUpdater.setUpdateFrom(UpdateFrom.JSON);
+        appUpdater.setUpdateJSON("https://raw.githubusercontent.com/niklasatn/MicroAdventure/master/releases.json");
+        appUpdater.setDisplay(Display.DIALOG);
+        appUpdater.setTitleOnUpdateAvailable("Update available");
+        appUpdater.setContentOnUpdateAvailable("Check out the latest version available of my app!");
+        appUpdater.setTitleOnUpdateNotAvailable("Update not available");
+        appUpdater.setContentOnUpdateNotAvailable("No update available. Check for updates again later!");
+        appUpdater.setButtonUpdate("Update now?");
+        appUpdater.setButtonDismiss("Maybe later");
+        appUpdater.setButtonDoNotShowAgain("Huh, not interested");
+        appUpdater.setCancelable(false);
+        appUpdater.start();
     }
 
     private void handlePermissions() {

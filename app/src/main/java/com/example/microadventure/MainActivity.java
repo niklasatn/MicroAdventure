@@ -104,8 +104,8 @@ public class MainActivity extends AppCompatActivity {
         scheduleDailyActivityUpdate();
 
         buttonHelp.setOnClickListener(view -> {
-            Intent intent2 = new Intent(getApplicationContext(), IntroActivity.class);
-            startActivity(intent2);
+            //Intent intent2 = new Intent(getApplicationContext(), IntroActivity.class);
+            //startActivity(intent2);
             checkForUpdate();
         });
 

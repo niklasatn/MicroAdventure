@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
@@ -18,7 +17,6 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.switchmaterial.SwitchMaterial;
-
 import java.io.IOException;
 
 public class MoreActivity extends AppCompatActivity {

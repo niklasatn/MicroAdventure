@@ -1,0 +1,8 @@
+{
+  "latestVersion": "1.0.1",
+  "latestVersionCode": 2,
+  "url": "https://github.com/niklasatn/MicroAdventure/releases",
+  "releaseNotes": [
+    "- Fully Implemented App Updater",
+  ]
+}

@@ -1,15 +1,31 @@
 package com.example.microadventure;
 
+import static com.example.microadventure.ApkDownloader.getCurrentAppVersion;
+import static com.example.microadventure.ApkDownloader.isNewVersionAvailable;
 import static com.example.microadventure.MainActivity.notification_time;
+
+import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 import android.app.AlertDialog;
 import android.content.Context;
+
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -23,6 +39,8 @@ public class MoreActivity extends AppCompatActivity {
     private static final String PREFS_NAME = "AppPrefs";
     private static final String NOTIFICATION_TIME_KEY = "notification_time";
     private static final String SWITCH_STATUS_KEY = "notification_switch_status";
+    private static final int REQUEST_CODE_INSTALL_PERMISSION = 1002;
+    private ActivityResultLauncher<Intent> installPermissionLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +54,9 @@ public class MoreActivity extends AppCompatActivity {
 
         Button buttonReset = findViewById(R.id.buttonReset);
         buttonReset.setOnClickListener(v -> showResetDialog(this));
+
+        Button buttonUpdate = findViewById(R.id.buttonUpdate);
+        buttonUpdate.setOnClickListener(v -> handlePermissions());
 
         Slider notificationSlider = findViewById(R.id.notification_slider);
         notificationSlider.setValue(notification_time);
@@ -126,6 +147,47 @@ public class MoreActivity extends AppCompatActivity {
             Runtime.getRuntime().exit(0);
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void handlePermissions() {
+        installPermissionLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK) {
+                        onPermissionGranted();
+                    } else {
+                        Toast.makeText(MoreActivity.this, "Berechtigung abgelehnt", Toast.LENGTH_SHORT).show();
+                    }
+                }
+        );
+
+        if (!getPackageManager().canRequestPackageInstalls()) {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES);
+            intent.setData(Uri.parse("package:" + getPackageName()));
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                // Falls der Intent auf dem Gerät nicht unterstützt wird
+                Toast.makeText(this, "Einstellungen können nicht geöffnet werden", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            //onPermissionGranted();
+        }
+    }
+
+    private void onPermissionGranted() {
+        String githubApkUrl = "https://github.com/niklasatn/MicroAdventure/raw/bcb69b59bfce778474143cf2cc50c853008196a8/MicroAdventure.apk";
+        new ApkDownloader(this).execute(githubApkUrl);
+
+        String apkPath = "path_to_downloaded_apk";
+        String apkVersion = ApkDownloader.getApkVersion(apkPath);
+        String currentAppVersion = getCurrentAppVersion();
+
+        if (isNewVersionAvailable(apkVersion, currentAppVersion)) {
+            Toast.makeText(this,"Neue Version wird heruntergeladen und installiert...", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this,"Version ist aktuell", Toast.LENGTH_SHORT).show();
         }
     }
 

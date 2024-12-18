@@ -102,9 +102,28 @@
             app:cornerRadius="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/view"
             app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/view"
             app:layout_constraintTop_toBottomOf="@+id/notification_card"
-            app:layout_constraintVertical_bias="0.944" />
+            app:layout_constraintVertical_bias="0.868" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/buttonUpdate"
+            android:layout_width="173dp"
+            android:layout_height="41dp"
+            android:layout_marginStart="119dp"
+            android:layout_marginEnd="119dp"
+            android:layout_marginBottom="120dp"
+            android:text="App updaten"
+            android:textColor="@color/black"
+            app:backgroundTint="@color/white"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/view"
+            app:layout_constraintEnd_toEndOf="@+id/view"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/notification_card"
+            app:layout_constraintVertical_bias="0.47" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"

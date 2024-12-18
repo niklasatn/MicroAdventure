@@ -10,8 +10,8 @@ android {
         applicationId = "com.example.microadventure"
         minSdk = 33
         targetSdk = 35
-        versionCode = 1
-        versionName = "1.0"
+        versionCode = 4
+        versionName = "1.4"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -38,7 +38,7 @@ dependencies {
     implementation(libs.constraintlayout)
     implementation(libs.konfetti)
     implementation(libs.appintro)
-    implementation(libs.appupdater)
+    implementation(libs.okhttp)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
